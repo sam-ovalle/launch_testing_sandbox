@@ -3,7 +3,7 @@
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
-
+import os
 
 class ChatterPublisher(Node):
     def __init__(self):
@@ -30,7 +30,8 @@ def main(args=None):
         pass
     finally:
         chatter_publisher.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():  # <-- Only shutdown if context is still valid
+            rclpy.shutdown()
 
 
 if __name__ == '__main__':
